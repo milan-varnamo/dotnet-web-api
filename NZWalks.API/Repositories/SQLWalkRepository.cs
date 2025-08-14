@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
 
@@ -17,6 +18,21 @@ namespace NZWalks.API.Repositories
 			await dbContext.SaveChangesAsync();
 
 			return walk;
+		}
+
+		public async Task<Walk?> DeleteAsync(Guid id)
+		{
+			var existingWalk = await dbContext.Walks.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (existingWalk == null)
+			{
+				return null;
+			}
+
+			dbContext.Walks.Remove(existingWalk);
+			await dbContext.SaveChangesAsync();
+
+			return existingWalk;
 		}
 
 		public async Task<List<Walk>> GetAllAsync()
