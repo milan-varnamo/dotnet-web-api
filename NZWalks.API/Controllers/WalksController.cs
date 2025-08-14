@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NZWalks.API.CustomActionFilters;
 using NZWalks.API.Models.Domain;
 using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
@@ -19,14 +20,14 @@ namespace NZWalks.API.Controllers
 			this.walkRepository = walkRepository;
 		}
 		[HttpPost]
+		[ValidateModel]
 		public async Task<IActionResult> Create([FromBody] AddWalkRequestDto addWalkRequestDto)
 		{
+				var walkDomainModel = mapper.Map<Walk>(addWalkRequestDto);
 
-			var walkDomainModel = mapper.Map<Walk>(addWalkRequestDto);
+				await walkRepository.CreateAsync(walkDomainModel);
 
-			await walkRepository.CreateAsync(walkDomainModel);
-
-			return Ok(mapper.Map<WalkDto>(walkDomainModel));
+				return Ok(mapper.Map<WalkDto>(walkDomainModel));
 		}
 		[HttpGet]
 		public async Task<IActionResult> GetAll()
@@ -50,18 +51,19 @@ namespace NZWalks.API.Controllers
 		}
 		[HttpPut]
 		[Route("{id:Guid}")]
+		[ValidateModel]
 		public async Task<IActionResult> Update([FromRoute] Guid id, UpdateWalkRequestDto updateWalkRequestDto)
 		{
-			var walkDomainModel = mapper.Map<Walk>(updateWalkRequestDto);
+				var walkDomainModel = mapper.Map<Walk>(updateWalkRequestDto);
 
-			walkDomainModel = await walkRepository.UpdateAsync(id, walkDomainModel);
+				walkDomainModel = await walkRepository.UpdateAsync(id, walkDomainModel);
 
-			if (walkDomainModel == null)
-			{
-				return NotFound();
-			}
+				if (walkDomainModel == null)
+				{
+					return NotFound();
+				}
 
-			return Ok(mapper.Map<WalkDto>(walkDomainModel));
+				return Ok(mapper.Map<WalkDto>(walkDomainModel));
 		}
 		[HttpDelete]
 		[Route("{id:Guid}")]
