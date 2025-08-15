@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NZWalks.API.Migrations
 {
     /// <inheritdoc />
-    public partial class AddingImagesTable : Migration
+    public partial class Addingimagestablev2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace NZWalks.API.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FileSizeInBytes = table.Column<long>(type: "bigint", nullable: false),
                     FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false)

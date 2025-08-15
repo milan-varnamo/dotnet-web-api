@@ -12,8 +12,8 @@ using NZWalks.API.Data;
 namespace NZWalks.API.Migrations
 {
     [DbContext(typeof(NZWalksDbContext))]
-    [Migration("20250815205509_Adding Images Table")]
-    partial class AddingImagesTable
+    [Migration("20250815213035_Adding images table v.2")]
+    partial class Addingimagestablev2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace NZWalks.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("FileDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FileExtension")

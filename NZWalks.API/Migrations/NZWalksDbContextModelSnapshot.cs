@@ -60,7 +60,7 @@ namespace NZWalks.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("FileDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FileExtension")
