@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
@@ -33,7 +32,6 @@ namespace NZWalks.API.Controllers
 
 			if (identityResult.Succeeded)
 			{
-				// Add roles to this User
 				if (registerRequestDto.Roles != null && registerRequestDto.Roles.Any())
 				{
 					identityResult = await userManager.AddToRolesAsync(identityUser, registerRequestDto.Roles);
@@ -58,12 +56,12 @@ namespace NZWalks.API.Controllers
 			
 				if (checkPasswordResult)
 				{
-					// Get Roles for user
+	
 					var roles = await userManager.GetRolesAsync(user);
 					
 					if (roles != null)
 					{
-						// Create a token
+		
 						var jwtToken = tokenRepository.CreateJWTToken(user, roles.ToList());
 
 						var response = new LoginResponseDto

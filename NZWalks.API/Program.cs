@@ -13,7 +13,6 @@ using NZWalks.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var logger = new LoggerConfiguration()
 	.WriteTo.Console().WriteTo.File("Logs/NzWalks_Log.txt", rollingInterval: RollingInterval.Day).MinimumLevel.Warning().CreateLogger();
 
@@ -22,7 +21,7 @@ builder.Logging.AddSerilog(logger);
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -106,7 +105,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline. Middlewares.
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();

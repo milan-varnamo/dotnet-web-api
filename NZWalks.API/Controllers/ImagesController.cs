@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing.Constraints;
+﻿using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.Models.Domain;
 using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
@@ -18,7 +16,7 @@ namespace NZWalks.API.Controllers
 		{
 			this.imageRepository = imageRepository;
 		}
-		// POST: /api/Images/Upload
+
 		[HttpPost]
 		[Route("Upload")]
 		public async Task<IActionResult> Upload([FromForm] ImageUploadRequestDto request)
@@ -27,7 +25,7 @@ namespace NZWalks.API.Controllers
 
 			if (ModelState.IsValid) 
 			{
-				// convert DTO to Domain Model
+	
 				var imageDomainModel = new Image
 				{
 					File = request.File,
